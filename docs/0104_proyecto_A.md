@@ -90,6 +90,18 @@
 
 ---
 
+## 8 · Encaje con los requisitos del módulo
+
+> Apartado obligatorio: ninguna casilla puede quedar vacía.
+
+| Requisito | Dónde encaja en tu app | Tema |
+|-----------|------------------------|------|
+| **Persistencia de datos** — la información sobrevive al cerrar la app | guardar qué personajes tiene el usuario excluidos/favoritos entre sesiones | 4 |
+| **Servicio web** — la app consulta datos por internet | La app consulta distintas fuente para segun que juego: Data Dragon para el LoL y que es oficial de Riot, OverFast que no es oficial de Blizzard pero es estable, Marvel RivalsAPI.com que tiene una Key gratuita y de Rainbow Six no hay nada oficial ni decente asi que este va a estar en local si o si | 5 |
+| **Sensor o localización** | poder agitar el movil para hacer que la ruleta gire | 6 |
+| **Contenido multimedia** — foto, audio, vídeo o animación | splash art del personaje que te salga y animacion de girar la ruleta | 7 |
+
+---
 
 ## 9 · Riesgos
 
