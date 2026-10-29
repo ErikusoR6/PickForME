@@ -22,6 +22,7 @@ class MainActivity : ComponentActivity() {
                     PaginaJuegos(
                         juegos = juegosEjemplo,
                         onJuegoClick = { },
+                        onAjustesClick = { },
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
