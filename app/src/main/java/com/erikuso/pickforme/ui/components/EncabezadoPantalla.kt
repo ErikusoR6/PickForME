@@ -23,15 +23,21 @@ fun EncabezadoPantalla(
     titulo: String,
     subtitulo: String,
     modifier: Modifier = Modifier,
-    acciones: @Composable () -> Unit = {}
+    centrado: Boolean = false,
+    navegacion: @Composable () -> Unit = {},
+    acciones: @Composable () -> Unit = {},
+
 ){
     Row(
         modifier = modifier.fillMaxWidth().padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Column{
+        navegacion()
+        Column( modifier = Modifier.weight(1f),
+            horizontalAlignment = if (centrado) Alignment.CenterHorizontally else Alignment.Start){
+
             Text(
+
                 text = subtitulo,
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.primary
