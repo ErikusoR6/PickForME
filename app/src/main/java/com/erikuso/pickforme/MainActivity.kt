@@ -55,12 +55,13 @@ class MainActivity : ComponentActivity() {
                         )
                     } else {
                         BackHandler { juegoElegido = null }
+                        val personajesDelJuego = personajesEjemplo.filter { it.juego == juego.nombreJuego }
 
                         PaginaRuleta(
                             nombreJuego = juego.nombreJuego,
-                        personajes = personajesEjemplo,
+                        personajes = personajesDelJuego,
                         personajeSeleccionado = personajeElegido,
-                        onGirar = {personajeElegido = personajesEjemplo.random() },
+                        onGirar = { personajeElegido = personajesDelJuego.random() },
                         onAtras = { juegoElegido = null },
                         onAjusteClick = { },
                         modifier = Modifier.padding(innerPadding)
