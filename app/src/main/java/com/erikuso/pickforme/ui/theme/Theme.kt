@@ -8,35 +8,35 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 private val LightColorScheme = lightColorScheme(
-    primary = Color(0xFFE85B3E),
+    primary = PrimarioClaro,
     onPrimary = Color.White,
-    primaryContainer = Color(0xFFFFE1D7),
-    secondary = Color(0xFFB7791F),
-    tertiary = Color(0xFF2F8F68),
+    primaryContainer = ContenedorPrimarioClaro,
+    secondary = SecundarioClaro,
+    tertiary = TerciarioClaro,
     onTertiary = Color.White,
-    background = Color(0xFFF4F1EC),
-    onBackground = Color(0xFF282321),
-    surface = Color(0xFFFFFDF9),
-    onSurface = Color(0xFF282321),
-    surfaceVariant = Color(0xFFEDE9E3),
-    onSurfaceVariant = Color(0xFF807770),
-    outline = Color(0xFFDED8D1),
+    background = FondoClaro,
+    onBackground = TextoClaro,
+    surface = SuperficieClaro,
+    onSurface = TextoClaro,
+    surfaceVariant = VarianteSuperficieClaro,
+    onSurfaceVariant = DeVarianteSuperficieClaro,
+    outline = ContornoClaro,
 )
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Color(0xFF9272F0),
+    primary = PrimarioOscuro,
     onPrimary = Color.White,
-    primaryContainer = Color(0xFF2F2650),
-    secondary = Color(0xFFE0B04A),
-    tertiary = Color(0xFF2F8F68),
+    primaryContainer = ContenedorPrimarioOscuro,
+    secondary = SecundarioOscuro,
+    tertiary = TerciarioOscuro,
     onTertiary = Color.White,
-    background = Color(0xFF171719),
-    onBackground = Color(0xFFF5F0E9),
-    surface = Color(0xFF222225),
-    onSurface = Color(0xFFF5F0E9),
-    surfaceVariant = Color(0xFF2D2D31),
-    onSurfaceVariant = Color(0xFFA7A0A0),
-    outline = Color(0xFF39383C),
+    background = FondoOscuro,
+    onBackground = TextoOscuro,
+    surface = SuperficieOscuro,
+    onSurface = TextoOscuro,
+    surfaceVariant = VarianteSuperficieOscuro,
+    onSurfaceVariant = DeVarianteSuperficieOscuro,
+    outline = ContornoOscuro,
 )
 
 @Composable
@@ -48,6 +48,7 @@ fun PickForMeTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
+        Typography = Tipografia,
         content = content
     )
 }
