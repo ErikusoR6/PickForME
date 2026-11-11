@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">PickForMe</string>
+    <string name="app_name">PickForME</string>
+    <string name="girar_ruleta">Girar Ruleta</string>
+    <string name="ajustes">Ajustes</string>
+    <string name="volver">Volver</string>
+    <string name="elegir_juego">ELIGE TU JUEGO</string>
+    <string name="ruleta_personaje">RULETA DE PERSONAJES</string>
+    <string name="todos">todos</string>
+    <string name="habilidades">Habilidades</string>
+<!--    <string name="cd_elegir_juego">ELIGE TU JUEGO</string>-->
+
+
 </resources>

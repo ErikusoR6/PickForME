@@ -18,9 +18,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.erikuso.pickforme.R
 import com.erikuso.pickforme.model.Personaje
 import com.erikuso.pickforme.model.personajesEjemplo
 import com.erikuso.pickforme.ui.theme.PickForMeTheme
@@ -74,7 +76,7 @@ fun FichaPersonaje(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
-                    text = "Habilidades",
+                    text = stringResource(R.string.habilidades),
                     style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.onSurface
                 )

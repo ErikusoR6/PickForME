@@ -12,8 +12,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.erikuso.pickforme.R
 import com.erikuso.pickforme.model.Juego
 import com.erikuso.pickforme.model.juegosEjemplo
 import com.erikuso.pickforme.ui.components.EncabezadoPantalla
@@ -29,11 +31,11 @@ fun PaginaJuegos(
 ) {
     Column(modifier = modifier) {
         EncabezadoPantalla(
-            titulo = "PickForME",
-            subtitulo = "ELIGE TU JUEGO"
+            titulo = stringResource(R.string.app_name),
+            subtitulo = stringResource(R.string.elegir_juego)
         ) {
             IconButton(onClick = onAjustesClick) {
-                Icon(imageVector = Icons.Filled.Settings, contentDescription = "Ajustes")
+                Icon(imageVector = Icons.Filled.Settings, contentDescription = stringResource(R.string.ajustes))
             }
 
         }

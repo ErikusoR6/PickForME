@@ -26,7 +26,7 @@ val personajesEjemplo = listOf(
                 "teje intrincadamente una red mental mortal que atrapa a sus enemigos, mientras que su indestructible forma de " +
                 "diamante le permite liderar a sus compañeros sin miedo a la refriega. ¡Siempre elegante y serena, Emma reina como " +
                 "la única y verdadera reina del campo de batalla!",
-        habilidades = listOf("Pulso Telepático", "Escudo Mental", "Forma de Diamante","Lanza Psíquica", "Seduccion Psiónica"),
+        habilidades = listOf("Pulso Telepático", "Escudo Mental", "Forma de Diamante","Lanza Psíquica", "Seducción Psiónica"),
         imagenUr1 = "https://rivalskins.com/wp-content/uploads/marvel-assets/items/spray/38/img_emma-frost-emblem.png"
     ),
     Personaje(

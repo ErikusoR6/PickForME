@@ -19,8 +19,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.erikuso.pickforme.R
 import com.erikuso.pickforme.model.Personaje
 import com.erikuso.pickforme.model.Rol
 import com.erikuso.pickforme.model.personajesEjemplo
@@ -47,19 +49,19 @@ fun PaginaRuleta(
     ) {
         EncabezadoPantalla(
             titulo = nombreJuego,
-            subtitulo = "RULETA DE PERSONAJES",
+            subtitulo = stringResource(R.string.ruleta_personaje),
             centrado = true,
             navegacion = {
                 IconButton(onClick = onAtras) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Volver"
+                        contentDescription = stringResource(R.string.volver)
                     )
                 }
             }
         ) {
             IconButton(onClick = onAjusteClick) {
-                Icon(imageVector = Icons.Filled.Settings, contentDescription = "Ajustes")
+                Icon(imageVector = Icons.Filled.Settings, contentDescription = stringResource(R.string.ajustes))
             }
         }
         LazyRow(
@@ -67,7 +69,7 @@ fun PaginaRuleta(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             item {
-                FiltroRol(texto = "Todos", seleccionado = true, onClick = {})
+                FiltroRol(texto = stringResource(R.string.todos), seleccionado = true, onClick = {})
             }
             items(Rol.entries) { rol ->
                 FiltroRol(texto = rol.etiqueta, seleccionado = false, onClick = {})

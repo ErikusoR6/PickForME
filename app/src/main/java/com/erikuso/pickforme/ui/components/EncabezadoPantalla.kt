@@ -17,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.erikuso.pickforme.ui.theme.PickForMeTheme
+import androidx.compose.ui.res.stringResource
+import com.erikuso.pickforme.R
 
 @Composable
 fun EncabezadoPantalla(
@@ -55,9 +57,9 @@ fun EncabezadoPantalla(
 @Composable
 private fun EncabezadoPantallaPreview() {
     PickForMeTheme {
-        EncabezadoPantalla(titulo = "PickForME", subtitulo = "ELIGE TU JUEGO"){
+        EncabezadoPantalla(titulo = stringResource(R.string.app_name), subtitulo = stringResource(R.string.elegir_juego)){
             IconButton(onClick = {}) {
-                Icon(imageVector = Icons.Filled.Settings, contentDescription = "Ajustes")
+                Icon(imageVector = Icons.Filled.Settings, contentDescription = stringResource(R.string.ajustes))
             }
         }
 
