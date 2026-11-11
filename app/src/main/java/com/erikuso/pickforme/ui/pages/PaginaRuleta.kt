@@ -96,7 +96,7 @@ fun PaginaRuleta(
                 .align(Alignment.CenterHorizontally)
 
         ) {
-            Text("Girar Ruleta")
+            Text(stringResource(R.string.girar_ruleta))
         }
 
         FichaPersonaje(
