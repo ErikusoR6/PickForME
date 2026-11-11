@@ -7,7 +7,7 @@
     <string name="ruleta_personaje">RULETA DE PERSONAJES</string>
     <string name="todos">todos</string>
     <string name="habilidades">Habilidades</string>
-<!--    <string name="cd_elegir_juego">ELIGE TU JUEGO</string>-->
+    <string name="num_personajes">%1$d personajes</string>
 
 
 </resources>

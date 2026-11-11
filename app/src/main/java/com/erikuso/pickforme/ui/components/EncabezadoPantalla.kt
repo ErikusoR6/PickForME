@@ -1,6 +1,5 @@
 package com.erikuso.pickforme.ui.components
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,48 +19,65 @@ import com.erikuso.pickforme.ui.theme.PickForMeTheme
 import androidx.compose.ui.res.stringResource
 import com.erikuso.pickforme.R
 
+data class EncabezadoPantallaParams(
+    val titulo: String,
+    val subtitulo: String,
+    val centrado: Boolean = false,
+    val navegacion: @Composable () -> Unit = {},
+    val acciones: @Composable () -> Unit = {}
+)
+
 @Composable
 fun EncabezadoPantalla(
-    titulo: String,
-    subtitulo: String,
+    params: EncabezadoPantallaParams,
     modifier: Modifier = Modifier,
-    centrado: Boolean = false,
-    navegacion: @Composable () -> Unit = {},
-    acciones: @Composable () -> Unit = {},
-
-){
+) {
     Row(
-        modifier = modifier.fillMaxWidth().padding(12.dp),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        navegacion()
-        Column( modifier = Modifier.weight(1f),
-            horizontalAlignment = if (centrado) Alignment.CenterHorizontally else Alignment.Start){
+        params.navegacion()
+        Column(
+            modifier = Modifier.weight(1f),
+            horizontalAlignment = if (params.centrado) Alignment.CenterHorizontally else Alignment.Start
+        ) {
 
             Text(
 
-                text = subtitulo,
+                text = params.subtitulo,
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.primary
             )
             Text(
-                text = titulo,
+                text = params.titulo,
                 style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.onBackground
             )
         }
-        acciones()
+        params.acciones()
     }
 }
+
 @Preview(showBackground = true)
 @Composable
 private fun EncabezadoPantallaPreview() {
     PickForMeTheme {
-        EncabezadoPantalla(titulo = stringResource(R.string.app_name), subtitulo = stringResource(R.string.elegir_juego)){
-            IconButton(onClick = {}) {
-                Icon(imageVector = Icons.Filled.Settings, contentDescription = stringResource(R.string.ajustes))
-            }
-        }
+        EncabezadoPantalla(
+            params = EncabezadoPantallaParams(
+                titulo = stringResource(R.string.app_name),
+                subtitulo = stringResource(R.string.elegir_juego),
+                acciones = {
+                    IconButton(onClick = {}) {
+                        Icon(
+                            imageVector = Icons.Filled.Settings,
+                            contentDescription = stringResource(R.string.ajustes)
+                        )
+                    }
+                }
+            )
+        )
 
     }
 }

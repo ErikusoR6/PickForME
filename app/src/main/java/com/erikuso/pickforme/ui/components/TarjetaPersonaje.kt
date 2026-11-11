@@ -21,26 +21,29 @@ import coil3.compose.AsyncImage
 import com.erikuso.pickforme.model.Personaje
 import com.erikuso.pickforme.model.personajesEjemplo
 import com.erikuso.pickforme.ui.theme.PickForMeTheme
-
+data class TarjetaPersonajeParams(
+    val nombre: String,
+    val imagenUr1: String,
+    val seleccionado: Boolean,
+    val onClick: () -> Unit
+)
 @Composable
 fun TarjetaPersonaje(
-    personaje: Personaje,
-    seleccionado: Boolean,
-    onClick: () -> Unit,
+    params: TarjetaPersonajeParams,
     modifier: Modifier = Modifier
 ) {
     Card(
-        onClick = onClick,
+        onClick = params.onClick,
         modifier = modifier
             .width(88.dp)
             .height(100.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
-        border = if (seleccionado) BorderStroke(3.dp, MaterialTheme.colorScheme.primary) else null
+        border = if (params.seleccionado) BorderStroke(3.dp, MaterialTheme.colorScheme.primary) else null
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             AsyncImage(
-                model = personaje.imagenUr1,
-                contentDescription = personaje.nombre,
+                model = params.imagenUr1,
+                contentDescription = params.nombre,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()
             )
@@ -71,9 +74,13 @@ fun TarjetaPersonaje(
 private fun TarjetaPersonajePreview() {
     PickForMeTheme {
         TarjetaPersonaje(
-            personaje = personajesEjemplo[0],
-            seleccionado = true,
-            onClick = {}
+            params = TarjetaPersonajeParams(
+                nombre = personajesEjemplo[0].nombre,
+                imagenUr1 = personajesEjemplo[0].imagenUr1,
+                seleccionado = true,
+                onClick = {}
+            )
+
         )
     }
 }

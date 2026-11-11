@@ -14,25 +14,28 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.erikuso.pickforme.ui.theme.PickForMeTheme
 
+data class FiltroRolParams(
+    val texto: String,
+    val seleccionado: Boolean,
+    val onClick: () -> Unit
+)
 @Composable
 fun FiltroRol(
-    texto: String,
-    seleccionado: Boolean,
-    onClick: () -> Unit,
+    params: FiltroRolParams,
     modifier: Modifier = Modifier
 ){
     Surface(
-        onClick = onClick,
+        onClick = params.onClick,
         modifier = modifier,
         shape = CircleShape,
-        color = if (seleccionado) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
-        border = if (seleccionado) null else BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
+        color = if (params.seleccionado) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
+        border = if (params.seleccionado) null else BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
     ) {
         Text(
-            text = texto,
+            text = params.texto,
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
             style = MaterialTheme.typography.labelMedium,
-            color = if (seleccionado) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+            color = if (params.seleccionado) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
 
@@ -42,8 +45,8 @@ fun FiltroRol(
 private fun FiltroRolPreview() {
     PickForMeTheme {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            FiltroRol(texto = "Todos", seleccionado = true, onClick = {})
-            FiltroRol(texto = "Tanque", seleccionado = false, onClick = {})
+            FiltroRol(params = FiltroRolParams("Todos", seleccionado = true, onClick = {}))
+            FiltroRol(params = FiltroRolParams(texto = "Tanque", seleccionado = false, onClick = {}))
         }
     }
 }
