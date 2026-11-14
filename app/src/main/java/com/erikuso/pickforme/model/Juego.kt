@@ -1,6 +1,9 @@
 package com.erikuso.pickforme.model
 
-data class Juego(val nombreJuego: String, val siglas: String, val numeroPersonajes: Int )
+data class Juego(
+    val nombreJuego: String,
+    val siglas: String,
+    val numeroPersonajes: Int )
 
 val juegosEjemplo = listOf(
     Juego("Marvel Rivals","MR",54),

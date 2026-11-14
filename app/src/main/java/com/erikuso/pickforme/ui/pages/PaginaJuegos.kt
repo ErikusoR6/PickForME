@@ -19,7 +19,9 @@ import com.erikuso.pickforme.R
 import com.erikuso.pickforme.model.Juego
 import com.erikuso.pickforme.model.juegosEjemplo
 import com.erikuso.pickforme.ui.components.EncabezadoPantalla
+import com.erikuso.pickforme.ui.components.EncabezadoPantallaParams
 import com.erikuso.pickforme.ui.components.TarjetaJuego
+import com.erikuso.pickforme.ui.components.TarjetaJuegoParams
 import com.erikuso.pickforme.ui.theme.PickForMeTheme
 
 @Composable
@@ -31,14 +33,19 @@ fun PaginaJuegos(
 ) {
     Column(modifier = modifier) {
         EncabezadoPantalla(
-            titulo = stringResource(R.string.app_name),
-            subtitulo = stringResource(R.string.elegir_juego)
-        ) {
-            IconButton(onClick = onAjustesClick) {
-                Icon(imageVector = Icons.Filled.Settings, contentDescription = stringResource(R.string.ajustes))
-            }
-
-        }
+            params = EncabezadoPantallaParams(
+                titulo = stringResource(R.string.app_name),
+                subtitulo = stringResource(R.string.elegir_juego),
+                acciones = {
+                    IconButton(onClick = onAjustesClick) {
+                        Icon(
+                            imageVector = Icons.Filled.Settings,
+                            contentDescription = stringResource(R.string.ajustes)
+                        )
+                    }
+                }
+            )
+        )
         LazyColumn(
             modifier = Modifier.weight(1f),
             contentPadding = PaddingValues(16.dp),
@@ -46,13 +53,16 @@ fun PaginaJuegos(
         ) {
             items(juegos) { juego ->
                 TarjetaJuego(
-                    juego = juego,
-                    onClick = { onJuegoClick(juego) }
+                    params = TarjetaJuegoParams(
+                        nombreJuego = juego.nombreJuego,
+                        siglas = juego.siglas,
+                        numeroPersonajes = juego.numeroPersonajes,
+                        onClick = { onJuegoClick(juego) }
+                    )
                 )
             }
         }
     }
-
 }
 
 @Preview(showBackground = true)

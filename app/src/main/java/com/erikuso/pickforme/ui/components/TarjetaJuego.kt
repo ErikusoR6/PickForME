@@ -17,19 +17,26 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.erikuso.pickforme.R
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.erikuso.pickforme.model.Juego
 import com.erikuso.pickforme.model.juegosEjemplo
 import com.erikuso.pickforme.ui.theme.PickForMeTheme
 
+data class TarjetaJuegoParams(
+    val nombreJuego: String,
+    val siglas: String,
+    val numeroPersonajes: Int,
+    val onClick: () -> Unit
+)
 @Composable
 fun TarjetaJuego(
-    juego: Juego,
-    onClick: () -> Unit,
+    params: TarjetaJuegoParams,
     modifier: Modifier = Modifier
 ){
-    Card(onClick = onClick,
+    Card(onClick = params.onClick,
         modifier = modifier.fillMaxWidth()
     ){
         Row(modifier = Modifier.padding(12.dp),
@@ -40,19 +47,19 @@ fun TarjetaJuego(
                 MaterialTheme.shapes.medium),
                 contentAlignment = Alignment.Center){
                 Text(
-                    text = juego.siglas,
+                    text = params.siglas,
                     color = MaterialTheme.colorScheme.onPrimary
                 )
             }
             Column(modifier = Modifier.weight(1f)){
                 Text(
-                    text = juego.nombreJuego,
+                    text = params.nombreJuego,
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface
 
                 )
                 Text(
-                    text = "${juego.numeroPersonajes} personajes",
+                    text = stringResource(R.string.num_personajes, params.numeroPersonajes),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -69,7 +76,12 @@ fun TarjetaJuego(
 @Composable
 private fun TarjetaJuegoPreview(){
     PickForMeTheme() {
-        TarjetaJuego(juego = juegosEjemplo[1], onClick ={})
+        TarjetaJuego(params = TarjetaJuegoParams(
+            onClick = {},
+            nombreJuego = juegosEjemplo[1].siglas,
+            siglas = juegosEjemplo[1].nombreJuego,
+            numeroPersonajes = juegosEjemplo[1].numeroPersonajes
+        ))
     }
 }
 

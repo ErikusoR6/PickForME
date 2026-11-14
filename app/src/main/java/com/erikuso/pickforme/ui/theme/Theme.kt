@@ -48,7 +48,7 @@ fun PickForMeTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        Typography = Tipografia,
+        typography = Tipografia,
         content = content
     )
 }

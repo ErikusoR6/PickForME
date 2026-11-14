@@ -27,10 +27,17 @@ import com.erikuso.pickforme.model.Personaje
 import com.erikuso.pickforme.model.personajesEjemplo
 import com.erikuso.pickforme.ui.theme.PickForMeTheme
 
+data class FichaPersonajeParams(
+    val siglas: String,
+    val nombre: String,
+    val rol: String,
+    val descripcion: String,
+    val habilidades: List<String>
+)
 
 @Composable
 fun FichaPersonaje(
-    personaje: Personaje,
+    params: FichaPersonajeParams,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -46,7 +53,7 @@ fun FichaPersonaje(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = personaje.siglas,                          // siglas
+                    text = params.siglas,
                 style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
@@ -60,18 +67,18 @@ fun FichaPersonaje(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Text(
-                        text = personaje.nombre,
+                        text = params.nombre,
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
-                        text = personaje.rol.etiqueta,
+                        text = params.rol,
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.primary
                     )
                 }
                 Text(
-                    text = personaje.descripcion,
+                    text = params.descripcion,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -80,7 +87,7 @@ fun FichaPersonaje(
                     style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.onSurface
                 )
-                personaje.habilidades.chunked(2).forEach { fila ->
+                params.habilidades.chunked(2).forEach { fila ->
                     Row(modifier = Modifier.fillMaxWidth()) {
                         fila.forEach { habilidad ->
                             Text(
@@ -102,6 +109,12 @@ fun FichaPersonaje(
 @Composable
 private fun FichaPersonajePreview() {
     PickForMeTheme {
-        FichaPersonaje(personaje = personajesEjemplo[0])
+        FichaPersonaje(params = FichaPersonajeParams(
+            siglas = personajesEjemplo[0].siglas,
+            nombre = personajesEjemplo[0].nombre,
+            rol = personajesEjemplo[0].rol.etiqueta,
+            descripcion = personajesEjemplo[0].descripcion,
+            habilidades = personajesEjemplo[0].habilidades
+        ))
     }
 }

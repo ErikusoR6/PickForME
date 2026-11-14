@@ -27,10 +27,14 @@ import com.erikuso.pickforme.model.Personaje
 import com.erikuso.pickforme.model.Rol
 import com.erikuso.pickforme.model.personajesEjemplo
 import com.erikuso.pickforme.ui.components.EncabezadoPantalla
+import com.erikuso.pickforme.ui.components.EncabezadoPantallaParams
 import com.erikuso.pickforme.ui.components.FichaPersonaje
+import com.erikuso.pickforme.ui.components.FichaPersonajeParams
 import com.erikuso.pickforme.ui.components.FiltroRol
 import com.erikuso.pickforme.ui.components.TarjetaPersonaje
+import com.erikuso.pickforme.ui.components.TarjetaPersonajeParams
 import com.erikuso.pickforme.ui.theme.PickForMeTheme
+import com.erikuso.pickforme.ui.components.FiltroRolParams
 import kotlin.Boolean
 
 @Composable
@@ -48,31 +52,49 @@ fun PaginaRuleta(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         EncabezadoPantalla(
-            titulo = nombreJuego,
-            subtitulo = stringResource(R.string.ruleta_personaje),
-            centrado = true,
-            navegacion = {
-                IconButton(onClick = onAtras) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(R.string.volver)
-                    )
+            params = EncabezadoPantallaParams(
+                titulo = nombreJuego,
+                subtitulo = stringResource(R.string.ruleta_personaje),
+                centrado = true,
+                navegacion = {
+                    IconButton(onClick = onAtras) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.volver)
+                        )
+                    }
+                },
+                acciones = {
+                    IconButton(onClick = onAjusteClick) {
+                        Icon(
+                            imageVector = Icons.Filled.Settings,
+                            contentDescription = stringResource(R.string.ajustes)
+                        )
+                    }
                 }
-            }
-        ) {
-            IconButton(onClick = onAjusteClick) {
-                Icon(imageVector = Icons.Filled.Settings, contentDescription = stringResource(R.string.ajustes))
-            }
-        }
+            )
+        )
         LazyRow(
             contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             item {
-                FiltroRol(texto = stringResource(R.string.todos), seleccionado = true, onClick = {})
+                FiltroRol(
+                    params = FiltroRolParams(
+                        texto = stringResource(R.string.todos),
+                        seleccionado = true,
+                        onClick = {}
+                    )
+                )
             }
             items(Rol.entries) { rol ->
-                FiltroRol(texto = rol.etiqueta, seleccionado = false, onClick = {})
+                FiltroRol(
+                    params = FiltroRolParams(
+                        texto = rol.etiqueta,
+                        seleccionado = false,
+                        onClick = {}
+                    )
+                )
             }
         }
         LazyRow(
@@ -82,43 +104,50 @@ fun PaginaRuleta(
         ) {
             items(personajes) { personaje ->
                 TarjetaPersonaje(
-                    personaje = personaje,
-                    seleccionado = personaje == personajeSeleccionado,
-                    onClick = {}
-
+                    params = TarjetaPersonajeParams(
+                        nombre = personaje.nombre,
+                        imagenUr1 = personaje.imagenUr1,
+                        seleccionado = personaje == personajeSeleccionado,
+                        onClick = {}
+                    )
                 )
             }
         }
 
         Button(
             onClick = onGirar,
-            modifier = Modifier.padding(horizontal = 16.dp)
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
                 .align(Alignment.CenterHorizontally)
-
         ) {
             Text(stringResource(R.string.girar_ruleta))
         }
 
         FichaPersonaje(
-            personaje = personajeSeleccionado,
+            params = FichaPersonajeParams(
+                nombre = personajeSeleccionado.nombre,
+                siglas = personajeSeleccionado.siglas,
+                rol = personajeSeleccionado.rol.etiqueta,
+                descripcion = personajeSeleccionado.descripcion,
+                habilidades = personajeSeleccionado.habilidades
+            ),
+
             modifier = Modifier.padding(horizontal = 16.dp)
-
-
         )
-
     }
 }
+
 @Preview(showBackground = true)
 @Composable
 private fun PaginaRuletaPreview() {
     PickForMeTheme {
         PaginaRuleta(
             nombreJuego = "Marvel Rivals",
-        personajes = personajesEjemplo,
-        personajeSeleccionado = personajesEjemplo[0],
-        onGirar = {},
-        onAjusteClick = {},
-        onAtras = {}
+            personajes = personajesEjemplo,
+            personajeSeleccionado = personajesEjemplo[0],
+            onGirar = {},
+            onAjusteClick = {},
+            onAtras = {}
         )
     }
 }
