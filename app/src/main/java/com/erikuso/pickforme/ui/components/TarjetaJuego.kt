@@ -78,8 +78,8 @@ private fun TarjetaJuegoPreview(){
     PickForMeTheme() {
         TarjetaJuego(params = TarjetaJuegoParams(
             onClick = {},
-            nombreJuego = juegosEjemplo[1].siglas,
-            siglas = juegosEjemplo[1].nombreJuego,
+            nombreJuego = juegosEjemplo[1].nombreJuego,
+            siglas = juegosEjemplo[1].siglas,
             numeroPersonajes = juegosEjemplo[1].numeroPersonajes
         ))
     }
