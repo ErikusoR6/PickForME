@@ -16,6 +16,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -35,29 +37,27 @@ import com.erikuso.pickforme.ui.components.TarjetaPersonaje
 import com.erikuso.pickforme.ui.components.TarjetaPersonajeParams
 import com.erikuso.pickforme.ui.theme.PickForMeTheme
 import com.erikuso.pickforme.ui.components.FiltroRolParams
+import com.erikuso.pickforme.ui.viewmodel.PaginaJuegosVM
+import com.erikuso.pickforme.ui.viewmodel.PaginaRuletaVM
 import kotlin.Boolean
 
 @Composable
 fun PaginaRuleta(
-    nombreJuego: String,
-    personajes: List<Personaje>,
-    personajeSeleccionado: Personaje,
-    onGirar: () -> Unit,
-    onAtras: () -> Unit,
-    onAjusteClick: () -> Unit,
+    vm: PaginaRuletaVM,
     modifier: Modifier = Modifier,
 ) {
+    val uiState by vm.uiState.collectAsState()
     Column(
         modifier = modifier.verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         EncabezadoPantalla(
             params = EncabezadoPantallaParams(
-                titulo = nombreJuego,
+                titulo = uiState.nombreJuego,
                 subtitulo = stringResource(R.string.ruleta_personaje),
                 centrado = true,
                 navegacion = {
-                    IconButton(onClick = onAtras) {
+                    IconButton(onClick = vm:: onAtras) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(R.string.volver)
@@ -65,7 +65,7 @@ fun PaginaRuleta(
                     }
                 },
                 acciones = {
-                    IconButton(onClick = onAjusteClick) {
+                    IconButton(vm::onAjusteClick) {
                         Icon(
                             imageVector = Icons.Filled.Settings,
                             contentDescription = stringResource(R.string.ajustes)
@@ -102,12 +102,12 @@ fun PaginaRuleta(
             contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            items(personajes) { personaje ->
+            items(uiState.personajes) { personaje ->
                 TarjetaPersonaje(
                     params = TarjetaPersonajeParams(
                         nombre = personaje.nombre,
                         imagenUr1 = personaje.imagenUr1,
-                        seleccionado = personaje == personajeSeleccionado,
+                        seleccionado = personaje == uiState.personajeSeleccionado,
                         onClick = {}
                     )
                 )
@@ -115,25 +115,27 @@ fun PaginaRuleta(
         }
 
         Button(
-            onClick = onGirar,
+            onClick = vm::onGirar,
             modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .align(Alignment.CenterHorizontally)
         ) {
             Text(stringResource(R.string.girar_ruleta))
         }
+        uiState.personajeSeleccionado?.let { personaje ->
+            FichaPersonaje(
 
-        FichaPersonaje(
-            params = FichaPersonajeParams(
-                nombre = personajeSeleccionado.nombre,
-                siglas = personajeSeleccionado.siglas,
-                rol = personajeSeleccionado.rol.etiqueta,
-                descripcion = personajeSeleccionado.descripcion,
-                habilidades = personajeSeleccionado.habilidades
-            ),
 
-            modifier = Modifier.padding(horizontal = 16.dp)
-        )
+                params = FichaPersonajeParams(
+                    nombre = personaje.nombre,
+                    siglas = personaje.siglas,
+                    rol = personaje.rol.etiqueta,
+                    descripcion = personaje.descripcion,
+                    habilidades = personaje.habilidades
+                ),
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
+        }
     }
 }
 
@@ -141,13 +143,9 @@ fun PaginaRuleta(
 @Composable
 private fun PaginaRuletaPreview() {
     PickForMeTheme {
-        PaginaRuleta(
-            nombreJuego = "Marvel Rivals",
-            personajes = personajesEjemplo,
-            personajeSeleccionado = personajesEjemplo[0],
-            onGirar = {},
-            onAjusteClick = {},
-            onAtras = {}
-        )
+        val vm = PaginaRuletaVM()
+        vm.onJuegoCargado("Marvel Rivals")
+        PaginaRuleta(vm = vm)
+
     }
 }

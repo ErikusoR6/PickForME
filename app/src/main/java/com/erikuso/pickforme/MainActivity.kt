@@ -8,20 +8,16 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.erikuso.pickforme.model.Juego
-import com.erikuso.pickforme.model.juegosEjemplo
-import com.erikuso.pickforme.model.personajesEjemplo
 import com.erikuso.pickforme.ui.pages.PaginaJuegos
 import com.erikuso.pickforme.ui.pages.PaginaRuleta
 import com.erikuso.pickforme.ui.theme.PickForMeTheme
 import com.erikuso.pickforme.ui.viewmodel.PaginaJuegosVM
+import com.erikuso.pickforme.ui.viewmodel.PaginaRuletaVM
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +41,9 @@ class MainActivity : ComponentActivity() {
             PickForMeTheme {
                 val juegosVM: PaginaJuegosVM = viewModel()
                 val juegosState by juegosVM.uiState.collectAsState()
-                var personajeElegido by remember { mutableStateOf(personajesEjemplo[0]) }
+                val ruletaVM: PaginaRuletaVM = viewModel()
+                val ruletaState by ruletaVM.uiState.collectAsState()
+
 
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     val juego = juegosState.juegoElegido
@@ -56,17 +54,20 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.padding(innerPadding)
                         )
                     } else {
+                        LaunchedEffect(juego.nombreJuego) {
+                            ruletaVM.onJuegoCargado(juego.nombreJuego)
+                        }
+                        LaunchedEffect(ruletaState.volverSolicitado) {
+                            if (ruletaState.volverSolicitado) {
+                                ruletaVM.onVolverAtendido()
+                                juegosVM.onVolver()
+
+                            }
+                        }
                         BackHandler { juegosVM.onVolver() }
-                        val personajesDelJuego =
-                            personajesEjemplo.filter { it.juego == juego.nombreJuego }
 
                         PaginaRuleta(
-                            nombreJuego = juego.nombreJuego,
-                            personajes = personajesDelJuego,
-                            personajeSeleccionado = personajeElegido,
-                            onGirar = { personajeElegido = personajesDelJuego.random() },
-                            onAtras = { juegosVM.onVolver() },
-                            onAjusteClick = { },
+                            vm = ruletaVM,
                             modifier = Modifier.padding(innerPadding)
                         )
                     }
