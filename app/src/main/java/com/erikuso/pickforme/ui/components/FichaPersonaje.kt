@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -18,10 +19,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.erikuso.pickforme.R
 import com.erikuso.pickforme.model.Personaje
 import com.erikuso.pickforme.model.personajesEjemplo
@@ -32,7 +35,8 @@ data class FichaPersonajeParams(
     val nombre: String,
     val rol: String,
     val descripcion: String,
-    val habilidades: List<String>
+    val habilidades: List<String>,
+    val imagenSplashArt: String
 )
 
 @Composable
@@ -52,10 +56,11 @@ fun FichaPersonaje(
                     .background(MaterialTheme.colorScheme.primaryContainer),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = params.siglas,
-                style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.onPrimaryContainer
+                AsyncImage(
+                    model = params.imagenSplashArt,
+                    contentDescription = params.nombre,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
                 )
             }
             Column(
@@ -114,7 +119,8 @@ private fun FichaPersonajePreview() {
             nombre = personajesEjemplo[0].nombre,
             rol = personajesEjemplo[0].rol.etiqueta,
             descripcion = personajesEjemplo[0].descripcion,
-            habilidades = personajesEjemplo[0].habilidades
+            habilidades = personajesEjemplo[0].habilidades,
+            imagenSplashArt = personajesEjemplo[0].imagenSplashArt
         ))
     }
 }

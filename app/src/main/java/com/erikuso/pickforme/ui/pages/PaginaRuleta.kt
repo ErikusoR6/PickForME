@@ -20,26 +20,20 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.erikuso.pickforme.R
-import com.erikuso.pickforme.model.Personaje
-import com.erikuso.pickforme.model.Rol
-import com.erikuso.pickforme.model.personajesEjemplo
 import com.erikuso.pickforme.ui.components.EncabezadoPantalla
 import com.erikuso.pickforme.ui.components.EncabezadoPantallaParams
 import com.erikuso.pickforme.ui.components.FichaPersonaje
 import com.erikuso.pickforme.ui.components.FichaPersonajeParams
 import com.erikuso.pickforme.ui.components.FiltroRol
+import com.erikuso.pickforme.ui.components.FiltroRolParams
 import com.erikuso.pickforme.ui.components.TarjetaPersonaje
 import com.erikuso.pickforme.ui.components.TarjetaPersonajeParams
 import com.erikuso.pickforme.ui.theme.PickForMeTheme
-import com.erikuso.pickforme.ui.components.FiltroRolParams
-import com.erikuso.pickforme.ui.viewmodel.PaginaJuegosVM
 import com.erikuso.pickforme.ui.viewmodel.PaginaRuletaVM
-import kotlin.Boolean
 
 @Composable
 fun PaginaRuleta(
@@ -57,7 +51,7 @@ fun PaginaRuleta(
                 subtitulo = stringResource(R.string.ruleta_personaje),
                 centrado = true,
                 navegacion = {
-                    IconButton(onClick = vm:: onAtras) {
+                    IconButton(onClick = vm::onAtras) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(R.string.volver)
@@ -82,17 +76,17 @@ fun PaginaRuleta(
                 FiltroRol(
                     params = FiltroRolParams(
                         texto = stringResource(R.string.todos),
-                        seleccionado = true,
-                        onClick = {}
+                        uiState.rolSeleccionado == null,
+                        onClick = {vm.onRolSeleccionado(null)}
                     )
                 )
             }
-            items(Rol.entries) { rol ->
+            items(uiState.roles) { rol ->
                 FiltroRol(
                     params = FiltroRolParams(
                         texto = rol.etiqueta,
-                        seleccionado = false,
-                        onClick = {}
+                        uiState.rolSeleccionado == rol,
+                        onClick = {vm.onRolSeleccionado(rol)}
                     )
                 )
             }
@@ -102,7 +96,7 @@ fun PaginaRuleta(
             contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            items(uiState.personajes) { personaje ->
+            items(uiState.personajesFiltrados) { personaje ->
                 TarjetaPersonaje(
                     params = TarjetaPersonajeParams(
                         nombre = personaje.nombre,
@@ -131,7 +125,9 @@ fun PaginaRuleta(
                     siglas = personaje.siglas,
                     rol = personaje.rol.etiqueta,
                     descripcion = personaje.descripcion,
-                    habilidades = personaje.habilidades
+                    habilidades = personaje.habilidades,
+                    imagenSplashArt = personaje.imagenSplashArt
+
                 ),
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
